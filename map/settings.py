@@ -171,6 +171,7 @@ WEBPACK_LOADER = {
         "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
         "POLL_INTERVAL": not DEBUG,
         "IGNORE": [r".+\.hot-update.js", r".+\.map"],
+        "CROSSORIGIN": "anonymous",  # Required for unmasking "Script error" across ports
     }
 }
 
