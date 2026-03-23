@@ -6,9 +6,7 @@ set -euo pipefail
 python manage.py migrate --noinput
 python manage.py createcachetable && python manage.py clear_cache
 
-# Optional: Check if initial data exists, and if not, run initial imports.
-# To enable, uncomment this block and change example_data to match a table
-# name in your app.
-# if [ `psql ${DATABASE_URL} -tAX -c "SELECT COUNT(*) FROM example_table"` -eq "0" ]; then
-#    # Define an initial data loading command here, if one exists.
-# fi
+# Automatic initial data loading if the database is empty.
+if [ $(python manage.py shell -c "from map.models import CommunityArea; print(CommunityArea.objects.count())") -eq "0" ]; then
+    python manage.py loaddata map/fixtures/restaurant_permits.json map/fixtures/community_areas.json
+fi

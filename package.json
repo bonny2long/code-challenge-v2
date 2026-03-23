@@ -4,7 +4,7 @@
   "description": "JavaScript development setup for map",
   "scripts": {
     "build": "webpack --mode=production",
-    "serve": "webpack-dev-server --config /app/webpack.config.js --mode=development --host 0.0.0.0 --hot --open"
+    "serve": "webpack-dev-server --config /app/webpack.config.js --mode=development --host 0.0.0.0"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",

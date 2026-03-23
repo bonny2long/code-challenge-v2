@@ -1,6 +1,6 @@
-const path = require("path")
-const webpack = require("webpack") // eslint-disable-line no-unused-vars
-const BundleTracker = require("webpack-bundle-tracker")
+const path = require("path");
+const webpack = require("webpack"); // eslint-disable-line no-unused-vars
+const BundleTracker = require("webpack-bundle-tracker");
 
 const config = {
   context: __dirname,
@@ -25,6 +25,11 @@ const config = {
     port: 3000,
     compress: false,
     allowedHosts: ["localhost"],
+    headers: {
+      "Access-Control-Allow-Origin": "*", // Required for cross-origin bundle loading in Docker
+    },
+    hot: false, // Disabled to prevent HMR connection issues in some environments
+    client: false,
   },
   watchOptions: {
     poll: 1000,
@@ -99,7 +104,7 @@ const config = {
       },
     ],
   },
-}
+};
 
 module.exports = (env, argv) => {
   /*
@@ -109,12 +114,12 @@ module.exports = (env, argv) => {
    * /app/static/bundles for bundles.
    */
   if (argv.mode === "development") {
-    config.output.publicPath = "http://localhost:3000/static/bundles/"
+    config.output.publicPath = "http://localhost:3000/static/bundles/";
   }
 
   if (argv.mode === "production") {
-    config.output.publicPath = "/static/bundles/"
+    config.output.publicPath = "/static/bundles/";
   }
 
-  return config
-}
+  return config;
+};
